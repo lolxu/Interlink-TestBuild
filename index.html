@@ -109,30 +109,18 @@
 
       loadingBar.style.display = "block";
 
+      var myGameInstance = null;
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
               }).then((unityInstance) => {
+                myGameInstance = unityInstance;
+                  
                 loadingBar.style.display = "none";
                 fullscreenButton.onclick = () => {
                   unityInstance.SetFullscreen(1);
-                };
-
-                // Callback for the Unity OnClose event
-                window.onbeforeunload = function(e) {
-    
-                    // These are the messages you're seeing in the gif
-                    console.log("Calling Metrics Manager from Browser!");
-                    unityInstance.SendMessage("Metrics Manager", "Send");
-    
-                    // This never shows up correctly for me, but it does prompt
-                    // the player to close their window with a dialogue box
-                    //
-                    var dialogText = "You game has been saved!  Would you like to continue unloading the page?";
-                    e.returnValue = dialogText;
-                    return dialogText;
                 };
 
               }).catch((message) => {
@@ -141,7 +129,22 @@
             };
       
       document.body.appendChild(script);
-      
+
+      // Callback for the Unity OnClose event
+      window.onbeforeunload = function(e) {
+
+          // These are the messages you're seeing in the gif
+          console.log("Calling Metrics Manager from Browser!");
+          myGameInstance.SendMessage("MetricsManager", "Send");
+
+          // This never shows up correctly for me, but it does prompt
+          // the player to close their window with a dialogue box
+          //
+          var dialogText = "You game has been saved!  Would you like to continue unloading the page?";
+          e.returnValue = dialogText;
+          return dialogText;
+      };
+        
     </script>
   </body>
 </html>
