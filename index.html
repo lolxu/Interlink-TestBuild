@@ -131,9 +131,12 @@
       document.body.appendChild(script);
 
       // Callback for the Unity OnClose event
-      window.onbeforeunload = () => {
+      window.onbeforeunload = function() {
           console.log("Trying to send metrics...")
           myGameInstance.SendMessage("Metrics Manager", "Send");
+          
+          // This will never show up. Chrome decided to not use custom ones for preventing scamming 
+          return "Metrics will be sent..."
       };
         
     </script>
