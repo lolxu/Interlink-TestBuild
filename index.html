@@ -132,12 +132,7 @@
 
       // Callback for the Unity OnClose event
       window.onbeforeunload = function() {
-
-          // These are the messages you're seeing in the gif
-          console.log("Calling Metrics Manager from Browser!");
           myGameInstance.SendMessage("Metrics Manager", "Send");
-          
-          return "Are you sure you really want to leave the application?";
       };
         
     </script>
