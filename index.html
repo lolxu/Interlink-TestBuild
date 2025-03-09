@@ -134,8 +134,6 @@
       window.onbeforeunload = function() {
           console.log("Trying to send metrics...")
           myGameInstance.SendMessage("Metrics Manager", "Send");
-          
-          return "Ready to Leave?";
       };
         
     </script>
