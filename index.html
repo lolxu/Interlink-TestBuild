@@ -131,18 +131,13 @@
       document.body.appendChild(script);
 
       // Callback for the Unity OnClose event
-      window.onbeforeunload = function(e) {
+      window.onbeforeunload = function() {
 
           // These are the messages you're seeing in the gif
           console.log("Calling Metrics Manager from Browser!");
           myGameInstance.SendMessage("Metrics Manager", "Send");
-
-          // This never shows up correctly for me, but it does prompt
-          // the player to close their window with a dialogue box
-          //
-          var dialogText = "You game has been saved!  Would you like to continue unloading the page?";
-          e.returnValue = dialogText;
-          return dialogText;
+          
+          return "Are you sure you really want to leave the application?";
       };
         
     </script>
