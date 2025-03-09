@@ -131,7 +131,7 @@
       document.body.appendChild(script);
 
       // Callback for the Unity OnClose event
-      window.onbeforeunload = function() {
+      window.onbeforeunload = () => {
           console.log("Trying to send metrics...")
           myGameInstance.SendMessage("Metrics Manager", "Send");
       };
