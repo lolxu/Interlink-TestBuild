@@ -120,28 +120,26 @@
                   unityInstance.SetFullscreen(1);
                 };
 
-                // Callback for the Unity OnClose event
-                window.onbeforeunload = function(e) {
-        
-                    // These are the messages you're seeing in the gif
-                    console.log("Calling Metrics Manager from Browser!");
-                    unityInstance.SendMessage("Metrics Manager", "Send");
-        
-                    // This never shows up correctly for me, but it does prompt
-                    // the player to close their window with a dialogue box
-                    //
-                    var dialogText = "You game has been saved!  Would you like to continue unloading the page?";
-                    e.returnValue = dialogText;
-                    return dialogText;
-                };
-
               }).catch((message) => {
                 alert(message);
               });
             };
 
-      
+      // Callback for the Unity OnClose event
+      window.onbeforeunload = function(e) {
 
+          // These are the messages you're seeing in the gif
+          console.log("Calling Metrics Manager from Browser!");
+          // unityInstance.SendMessage("Metrics Manager", "Send");
+
+          // This never shows up correctly for me, but it does prompt
+          // the player to close their window with a dialogue box
+          //
+          var dialogText = "You game has been saved!  Would you like to continue unloading the page?";
+          e.returnValue = dialogText;
+          return dialogText;
+      };
+      
       document.body.appendChild(script);
       
     </script>
